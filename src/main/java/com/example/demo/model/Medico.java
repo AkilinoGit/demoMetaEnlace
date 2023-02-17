@@ -6,16 +6,15 @@ import lombok.Setter;
 
 import java.util.List;
 @Entity
+@PrimaryKeyJoinColumn(name = "usuario_id")
 public class Medico extends Usuario{
     //¿Ya me mapea los atributos como elementos sin decirle el nombre de columna?: Mejor definir con barrabajas para oracle
     //Cuando es obligatorio definir los mapped?: mapped cuando no es el propietrario de la relación
-    @Id
-    @PrimaryKeyJoinColumn(name="idUsuario")
-    @Column(name = "id_medico", nullable = false)
-    @Getter @Setter
-    private Long id_Medico;
+
+
 
     @Getter @Setter
+    @Column(name = "num_colegiado")
     private String numColegiado;
 
     @ManyToMany
@@ -32,10 +31,9 @@ public class Medico extends Usuario{
 
 
 
-    public Medico(String nombre, String apellidos, String usuario, String clave, Long id_Medico, String numColegiado,
+    public Medico(String nombre, String apellidos, String usuario, String clave, String numColegiado,
                   List<Paciente> pacientes, List<Cita> citas) {
         super(nombre, apellidos, usuario, clave);
-        this.id_Medico = id_Medico;
         this.numColegiado = numColegiado;
         this.pacientes = pacientes;
         this.citas = citas;

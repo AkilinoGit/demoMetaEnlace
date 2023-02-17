@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MedicoService extends ServiceGeneric<Medico> {
-    //No hace falta añadir un repositorio porque realmente vamos a usar el repositorio de la calse abstracta
     /*
+    No hace falta añadir un repositorio como atributo privado porque
+    realmente vamos a usar el repositorio de la calse abstracta
+
      public List<T> saveAll(List<T> entities){
         repository.saveAll(entities);
         return entities;

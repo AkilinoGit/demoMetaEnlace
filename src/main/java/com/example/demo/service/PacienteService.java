@@ -4,13 +4,15 @@ import com.example.demo.model.Paciente;
 import com.example.demo.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PacienteService extends ServiceGeneric<Paciente> {
 
-    @Autowired
-    private PacienteRepository repository;
 
-    public PacienteService(JpaRepository repository) {
+
+    @Autowired
+    public PacienteService(PacienteRepository repository) {
         super(repository);
     }
 

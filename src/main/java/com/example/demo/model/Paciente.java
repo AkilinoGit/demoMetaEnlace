@@ -6,19 +6,19 @@ import lombok.Setter;
 
 import java.util.List;
 @Entity
+@PrimaryKeyJoinColumn(name = "usuario_id")
 public class Paciente extends Usuario{
 
-    @Id
-    @Column(name = "id_paciente", nullable = false)
-    @PrimaryKeyJoinColumn(name="idUsuario")
-    @Getter @Setter private Long id_Paciente;
-
+    @Column(name = "nss")
     @Getter @Setter private String NSS;
 
+    @Column(name = "num_tarjeta")
     @Getter @Setter private String numTarjeta;
 
+    @Column(name = "telefono")
     @Getter @Setter private String telefono;
 
+    @Column(name = "direccion")
     @Getter @Setter private String direccion;
 
     @ManyToMany(mappedBy = "pacientes")
@@ -29,10 +29,9 @@ public class Paciente extends Usuario{
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     @Getter @Setter private List<Cita> citas;
 
-    public Paciente(String nombre, String apellidos, String usuario, String clave, Long id_Paciente, String NSS,
+    public Paciente(String nombre, String apellidos, String usuario, String clave, String NSS,
                     String numTarjeta, String telefono, String direccion, List<Medico> medicos, List<Cita> citas) {
         super(nombre, apellidos, usuario, clave);
-        this.id_Paciente = id_Paciente;
         this.NSS = NSS;
         this.numTarjeta = numTarjeta;
         this.telefono = telefono;

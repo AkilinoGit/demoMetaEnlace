@@ -3,11 +3,12 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 // HERENCIA DE JPA TAMBÍEN
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
+@PrimaryKeyJoinColumn(name = "id_usuario")
 public abstract class Usuario {
     @Id
     @Column(name = "id_usuario", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
 
     private String nombre;

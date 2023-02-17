@@ -1,22 +1,34 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 public class Diagnostico {
 
     @Id
     @Column(name = "id_diagnostico", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Setter
     private Long id_Diagnostico;
 
+
+    @Column(name = "valoracion_especialista")
+    @Getter
+    @Setter
     private String valoracionEspecialista;
 
+    @Column(name = "enfermedad")
+    @Getter
+    @Setter
     private String enfermedad;
 
-    @OneToOne(mappedBy = "diagnostico")
+    @PrimaryKeyJoinColumn(name = "cita_id")
+    @OneToOne(mappedBy = "diagnostico",cascade = CascadeType.ALL)
+    @Getter
+    @Setter
     private Cita cita;
 
 
@@ -24,11 +36,5 @@ public class Diagnostico {
 
     }
 
-    public Long getId_Diagnostico() {
-        return id_Diagnostico;
-    }
 
-    public void setId_Diagnostico(Long id_Diagnostico) {
-        this.id_Diagnostico = id_Diagnostico;
-    }
 }

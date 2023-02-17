@@ -4,9 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+
+
 public abstract class ServiceGeneric<T> {
 
     private JpaRepository<T,Long> repository;
+
 
     public ServiceGeneric (JpaRepository<T, Long> repository) {
         this.repository = repository;

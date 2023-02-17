@@ -1,33 +1,47 @@
 package com.example.demo.apiRest;
 
 import com.example.demo.model.Medico;
-import com.example.demo.repository.MedicoRepository;
 import com.example.demo.service.MedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
 
 @RestController
+@RequestMapping("/medicos")
 public class MedicoController {
 
-    @Autowired
-    MedicoService service ;
-    
 
+    private MedicoService service ;
+
+    @Autowired
     public MedicoController(MedicoService service){
         this.service=service;
     }
+
     @GetMapping("/medicos")
     public List<Medico> getMedicos(){
         return service.findAll();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Medico> getMedicobyId(Long id) {
+        Medico medico = service.findById(id);
+        if (medico.getIdUsuario() == id)
+            return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+
+    @PostMapping
+    public ResponseEntity<Medico> crearUsuario(@RequestBody Medico nuevoMedico) {
+        Medico usuarioCreado = service.save(nuevoMedico);
+        return ResponseEntity.created(URI.create("/medicos/" + usuarioCreado.getIdUsuario())).body(usuarioCreado);
+    }
+
+
+
 }
