@@ -26,8 +26,9 @@ public class MedicoController {
     }
 
     @GetMapping("/medicos")
-    public List<Medico> getMedicos(){
-        return service.findAll();
+    public ResponseEntity<List<Medico>> getMedicos(){
+
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 
     @GetMapping("/medicos/{id}")
@@ -38,11 +39,11 @@ public class MedicoController {
         else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    //HABRÍA QUE TRANSFORMAR DE JSON
-    @PostMapping("medicos/new/")
+    @PostMapping("medicos/new")//CODIFICAR CLAVE
     public ResponseEntity<Medico> crearUsuario(@RequestBody Medico nuevoMedico) {
         Medico usuarioCreado = service.save(nuevoMedico);
-        return ResponseEntity.created(URI.create("/medicos/" + usuarioCreado.getIdUsuario())).body(usuarioCreado);
+
+        return ResponseEntity.created(URI.create("/medicos/new/" + usuarioCreado.getIdUsuario())).body(usuarioCreado);
     }
 
 

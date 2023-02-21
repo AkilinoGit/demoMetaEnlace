@@ -6,7 +6,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,7 +13,7 @@ import java.util.Map;
 
 public class TokenUtils {
 
-    private final static String ACCES_TOKEN_SECRET = "HashSecreto";
+    private final static String ACCES_TOKEN_SECRET = "7d6a4e354a4da2cfebc234cb237ec08c5c73f74cc6c82cc33379550e9e9822e6";
     private final static Long ACCES_TOKEN_VALIDITY_SECONDS = 2_592_000L; //30DÍAS
 
 
