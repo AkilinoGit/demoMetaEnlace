@@ -1,7 +1,10 @@
 package com.example.demo.apiRest;
 
+import com.example.demo.DTO.DTO_insertar_medico;
+import com.example.demo.mappers.MapperInsertarMedicoToClassMedico;
 import com.example.demo.model.Medico;
 import com.example.demo.service.MedicoService;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,9 @@ public class MedicoController {
 
 
     private MedicoService service ;
+    MapperInsertarMedicoToClassMedico mapper;
+
+
 
 
     //DEBERÍA DEVOLVER UN RESPONSE ENTITY?
@@ -22,7 +28,9 @@ public class MedicoController {
 
     @Autowired
     public MedicoController(MedicoService service){
+
         this.service=service;
+        this.mapper = Mappers.getMapper(MapperInsertarMedicoToClassMedico.class);
     }
 
     @GetMapping("/medicos")
@@ -39,11 +47,19 @@ public class MedicoController {
         else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @PostMapping("medicos/new")//CODIFICAR CLAVE
-    public ResponseEntity<Medico> crearUsuario(@RequestBody Medico nuevoMedico) {
-        Medico usuarioCreado = service.save(nuevoMedico);
+    @PostMapping("medicos/new")
+    public ResponseEntity<Medico> crearUsuario(@RequestBody DTO_insertar_medico nuevoMedico) {
 
-        return ResponseEntity.created(URI.create("/medicos/new/" + usuarioCreado.getIdUsuario())).body(usuarioCreado);
+        Medico usuarioCreado = mapper.DTO_insertar_medicoToMedico(nuevoMedico);
+                /*= new Medico(nuevoMedico.getNombre(), nuevoMedico.getApellidos(),
+                nuevoMedico.getUsuario(),nuevoMedico.getClave(),nuevoMedico.getNumColegiado());*/
+
+        //¿añadir id apartir de sequence o como?
+        //Probar otra vez porque puede ser que oracle server no estuviera actualizado
+        service.save(usuarioCreado);
+
+
+        return ResponseEntity.created(URI.create("/medicos/new/" + usuarioCreado.getNombre())).body(usuarioCreado);
     }
 
 

@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 public class Cita {
     @Id
     @Column(name = "id_cita", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //USAR SECUENCIA Y AÑADIR LA SECUENCIA
+    @GeneratedValue(generator="sequenciaIDCitas")
+    @SequenceGenerator(name="sequenciaIDCitas",sequenceName="XE_SEQUENCIA_CITAS", allocationSize=1)
     @Getter
     @Setter
     private Long idCita;

@@ -9,7 +9,8 @@ public class Diagnostico {
 
     @Id
     @Column(name = "id_diagnostico", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="sequenciaIDDiagnosticos")
+    @SequenceGenerator(name="sequenciaIDDiagnosticos",sequenceName="XE_SEQUENCIA_DIAGNOSTICOS", allocationSize=1)
     @Getter
     @Setter
     private Long id_Diagnostico;

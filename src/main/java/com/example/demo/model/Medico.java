@@ -31,12 +31,10 @@ public class Medico extends Usuario{
 
 
 
-    public Medico(String nombre, String apellidos, String usuario, String clave, String numColegiado,
-                  List<Paciente> pacientes, List<Cita> citas) {
+    public Medico(String nombre, String apellidos, String usuario, String clave, String numColegiado) {
         super(nombre, apellidos, usuario, clave);
         this.numColegiado = numColegiado;
-        this.pacientes = pacientes;
-        this.citas = citas;
+
     }
 
     public Medico() {
